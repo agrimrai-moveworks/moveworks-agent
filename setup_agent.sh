@@ -1061,7 +1061,7 @@ function setup_agent_manager(){
 
  # Generate a random number between 0 and 5 for the cron schedule
   random_minute_start=$(( RANDOM % 5 ))
-  cron_command="${dbus_env} $SLEEP $((RANDOM % 60)) && ${AGENT_DIR}/agent-manager --base_dir=${AGENT_DIR} --container_runtime=${CONTAINER_RUNTIME} --logtostderr >> ${AGENT_DIR}/logs/${AGENT_MANAGER_LOG_FILE} 2>&1"
+  cron_command="${dbus_env} $SLEEP $((RANDOM % 60)) && ${AGENT_DIR}/agent-manager --base_dir=${AGENT_DIR} --container_runtime=${CONTAINER_RUNTIME} --log_dir ${AGENT_DIR}/logs --rotate_log"
   cron_job="${random_minute_start}-59/5 * * * * ${cron_command}"
 
   # Write to temporary file
