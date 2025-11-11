@@ -35,9 +35,8 @@ PODMAN_VERSION=3.4.4
 SYSTEM_TYPE=""
 OS_VERSION=""
 IS_UPGRADE=false
-AGENT_MANAGER_LOG_FILE="moveworks.agent_manager.log"
 AGENT_MANAGER_DOWNLOAD_URL="https://github.com/moveworks/moveworks-agent/releases/download/${RELEASE_VERSION}/agent-manager"
-AGENT_MANAGER_EXPECTED_HASH="6eb0d480af660d60aeed2260c3a7fdcaae5c943156e2a3830a6fc9a5a9eb0a41"  #pragma: allowlist secret` comment
+AGENT_MANAGER_EXPECTED_HASH="9c654bf3b4a9e0a8d51a6e3cceb6c1ad5b48fecbff57e0fbecd21b208301b845"  #pragma: allowlist secret` comment
 docker="docker"
 podman="podman"
 
@@ -1061,7 +1060,7 @@ function setup_agent_manager(){
 
  # Generate a random number between 0 and 5 for the cron schedule
   random_minute_start=$(( RANDOM % 5 ))
-  cron_command="${dbus_env} $SLEEP $((RANDOM % 60)) && ${AGENT_DIR}/agent-manager --base_dir=${AGENT_DIR} --container_runtime=${CONTAINER_RUNTIME} --logtostderr >> ${AGENT_DIR}/logs/${AGENT_MANAGER_LOG_FILE} 2>&1"
+  cron_command="${dbus_env} $SLEEP $((RANDOM % 60)) && ${AGENT_DIR}/agent-manager --base_dir=${AGENT_DIR} --container_runtime=${CONTAINER_RUNTIME} --log_dir ${AGENT_DIR}/logs --rotate_log"
   cron_job="${random_minute_start}-59/5 * * * * ${cron_command}"
 
   # Write to temporary file
